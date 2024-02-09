@@ -33,4 +33,11 @@
     @apply flex justify-center items-center flex-col gap-8;
     @apply w-full h-screen;
   }
+
+  /* TODO  
+  * .mySelect[class*="-valueContainer"] {
+    background-color: lemonchiffon;
+    padding: 10px;
+  } */
+
 }

@@ -11,7 +11,7 @@ const AmountInput = (): ReactElement => {
   };
 
   return (
-    <label className="relative flex flex-col gap-4 w-3/5 h-fit">
+    <label className="relative flex flex-col gap-4 w-full h-fit">
       <span>Amount</span>
       <input
         className="p-3 text-white bg-inherit border rounded-md"
