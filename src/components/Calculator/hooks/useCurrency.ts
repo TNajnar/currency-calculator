@@ -1,5 +1,5 @@
 import { Dispatch, useMemo } from "react";
-import useCalculatorProvider from "../../../context/useCalculatorProvider";
+import useCalculator from "../../../context/useCalculator";
 import { TBuy, TSell } from "../../../api/customTypes";
 import { TSelectedExchange } from "../../../utils/types";
 import { EReducerVariant } from "../../../utils/enums";
@@ -12,7 +12,7 @@ type TReturn = {
 }
 
 const useCurrency = (): TReturn => {
-  const { currency, dispatch } = useCalculatorProvider();
+  const { currency, dispatch } = useCalculator();
 
   const resolveBuy: Array<TBuy> = useMemo<Array<TBuy>>(() => {
     const getExchange: Array<TBuy> = currency

@@ -1,9 +1,9 @@
 import { ChangeEvent, ReactElement } from "react"
-import useCalculatorProvider from "../../../context/useCalculatorProvider";
+import useCalculator from "../../../context/useCalculator";
 import clsx from "clsx";
 
 const AmountInput = (): ReactElement => {
-  const { amount, setAmount } = useCalculatorProvider();
+  const { amount, setAmount } = useCalculator();
   
   const handleOnChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const inputValue = event.target.value.replace(/[^0-9]/g, '');

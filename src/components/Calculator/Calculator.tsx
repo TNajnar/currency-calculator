@@ -1,12 +1,12 @@
 import { ReactElement, useEffect } from "react"
 import { AmountInput, CalculateFooter, Currency } from "./components";
-import useCalculatorProvider from "../../context/useCalculatorProvider";
+import useCalculator from "../../context/useCalculator";
 import getExchangeData from "../../api/getExchangeData";
 import resolveExchangeData from "../../api/resolveExchangeData";
 
 
 const Calculator = (): ReactElement => {
-  const { setCurrency } = useCalculatorProvider();
+  const { setCurrency } = useCalculator();
 
   // Fetch data from API https://www.kurzy.cz/html-kody/json/kurzy-bank.htm
   useEffect(() => {

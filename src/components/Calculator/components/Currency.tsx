@@ -1,11 +1,11 @@
 import { ReactElement } from "react";
-import useCalculatorProvider from "../../../context/useCalculatorProvider";
+import useCalculator from "../../../context/useCalculator";
 import useCurrency from "../hooks/useCurrency";
 import { default as ReactSelect } from 'react-select'
 
 const Currency = (): ReactElement => {
   const { handleFrom, handleTo, resolveBuy, resolveSell } = useCurrency();
-  const {selectedExchanges} = useCalculatorProvider();
+  const {selectedExchanges} = useCalculator();
   console.log(selectedExchanges)
 
   return (
