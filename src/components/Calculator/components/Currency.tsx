@@ -1,20 +1,15 @@
 import { ReactElement } from "react";
-import Select from 'react-select'
-
-
-//  TODO API for currency's
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' }
-]
+import { default as ReactSelect } from 'react-select'
+import useCurrency from "../hooks/useCurrency";
 
 const Currency = (): ReactElement => {
+  const { resolveBuy, resolveSell } = useCurrency();
+
   return (
     <div className="flex flex-col items-center gap-5 w-full">
-      <Select
+      <ReactSelect
         className="w-full text-black"
-        options={options}
+        options={resolveBuy}
         styles={{control: (provided) => ({
             ...provided,
             padding: '7px',
@@ -27,9 +22,9 @@ const Currency = (): ReactElement => {
         <span>▼</span>
       </div>
 
-      <Select
+      <ReactSelect
         className="w-full text-black"
-        options={options}
+        options={resolveSell}
         styles={{control: (provided) => ({
             ...provided,
             padding: '7px',
