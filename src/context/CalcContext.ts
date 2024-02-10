@@ -1,16 +1,16 @@
 import { Dispatch, createContext } from "react";
-import { TExchangeValues } from "../api/customTypes";
-import { TCurrencyAction, TSelectedExchange } from "../utils/types";
+import { TExchangeValues, TMainExchange } from "../api/customTypes";
+import { TCurrencyAction } from "../utils/types";
 
 type TSelected = {
-  from: TSelectedExchange;
-  to: TSelectedExchange;
+  from: TMainExchange;
+  to: TMainExchange;
 }
 
-const initialSelectedExchanges = {
-  from: null,
-  to: null,
-}
+const initialSelectedExchanges: TSelected = {
+  from: {label: '', value: 0},
+  to: {label: '', value: 0},
+};
 
 export interface ICalculatorProps {
   amount: number | string;

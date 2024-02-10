@@ -1,12 +1,12 @@
-import { Dispatch, useMemo } from "react";
+import { useMemo } from "react";
+import { SingleValue } from "react-select";
 import useCalculator from "../../../context/useCalculator";
-import { TBuy, TSell } from "../../../api/customTypes";
-import { TSelectedExchange } from "../../../utils/types";
+import { TBuy, TMainExchange, TSell } from "../../../api/customTypes";
 import { EReducerVariant } from "../../../utils/enums";
 
 type TReturn = {
-  handleFrom: Dispatch<TSelectedExchange>;
-  handleTo: Dispatch<TSelectedExchange>;
+  handleFrom: (newValue: SingleValue<TMainExchange>) => void;
+  handleTo: (newValue: SingleValue<TMainExchange>) => void;
   resolveBuy: Array<TBuy>;
   resolveSell: Array<TSell>;
 }
@@ -38,12 +38,20 @@ const useCurrency = (): TReturn => {
     return getExchange;
   }, [currency]);
 
-    const handleFrom: Dispatch<TSelectedExchange> = (selected): void => {
-    dispatch({ type: EReducerVariant.SELECT_FROM, selected });
+    const handleFrom = (selected: SingleValue<TMainExchange>): void => {
+      const newValue: SingleValue<TMainExchange> = selected;
+
+      if (newValue !== null) {
+        dispatch({ type: EReducerVariant.SELECT_FROM, selected: newValue });
+      }
   };
 
-  const handleTo: Dispatch<TSelectedExchange> = (selected): void => {
-    dispatch({ type: EReducerVariant.SELECT_TO, selected });
+  const handleTo = (selected: SingleValue<TMainExchange>): void => {
+    const newValue: SingleValue<TMainExchange> = selected;
+
+    if (newValue !== null) {
+      dispatch({ type: EReducerVariant.SELECT_TO, selected: newValue });
+    }
   };
 
   return {

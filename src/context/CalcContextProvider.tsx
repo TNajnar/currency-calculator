@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, useReducer, useState } from "react";
 import CalcContext from "./CalcContext";
-import { TExchangeValues } from "../api/customTypes";
-import { TCurrencyAction, TSelectedExchange } from "../utils/types";
+import { TExchangeValues, TMainExchange } from "../api/customTypes";
+import { TCurrencyAction } from "../utils/types";
 import { EReducerVariant } from "../utils/enums";
 
 interface IProps {
@@ -10,8 +10,8 @@ interface IProps {
 
 export interface ICurrencyState {
   selectedExchanges: {
-    from: TSelectedExchange;
-    to: TSelectedExchange;
+    from: TMainExchange;
+    to: TMainExchange;
   };
 }
 
@@ -43,8 +43,8 @@ const CalcContextProvider = ({ children }: IProps): ReactElement => {
   const [currency, setCurrency] = useState<Array<TExchangeValues>>([]);
   const [{ selectedExchanges }, dispatch] = useReducer(currencyReducer, {
     selectedExchanges: {
-      from: null,
-      to: null,
+      from: { label: '', value: 0 },
+      to: { label: '', value: 0 },
     },
   });
   

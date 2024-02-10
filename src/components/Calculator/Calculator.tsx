@@ -12,6 +12,7 @@ const Calculator = (): ReactElement => {
   useEffect(() => {
     const exchangeData = async (): Promise<void> => {
       const data = await getExchangeData();
+      console.log(data)
       const resolvedData = resolveExchangeData(data);
       setCurrency(resolvedData);
     };
@@ -20,7 +21,7 @@ const Calculator = (): ReactElement => {
   }, [setCurrency]);
 
   return (
-    <div className="flex flex-col items-center gap-10 px-32 py-20 w-full h-1/2 bg-blue rounded-2xl">
+    <div className="flex flex-col items-center gap-10 px-32 py-20 w-full h-fit bg-blue rounded-2xl">
       <AmountInput />
       <Currency />
       <CalculateFooter />
