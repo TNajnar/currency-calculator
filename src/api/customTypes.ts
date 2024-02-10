@@ -24,7 +24,7 @@ export type TCurrencyExchange = {
 
 /* #region Resolved */
 
-type TMainExchange = {
+export type TMainExchange = {
   label: string;
   value: number;
 }

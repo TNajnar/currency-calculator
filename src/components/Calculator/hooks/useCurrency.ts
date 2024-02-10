@@ -1,14 +1,18 @@
-import { useMemo } from "react";
+import { Dispatch, useMemo } from "react";
 import useCalculatorProvider from "../../../context/useCalculatorProvider";
 import { TBuy, TSell } from "../../../api/customTypes";
+import { TSelectedExchange } from "../../../utils/types";
+import { EReducerVariant } from "../../../utils/enums";
 
 type TReturn = {
+  handleFrom: Dispatch<TSelectedExchange>;
+  handleTo: Dispatch<TSelectedExchange>;
   resolveBuy: Array<TBuy>;
   resolveSell: Array<TSell>;
 }
 
 const useCurrency = (): TReturn => {
-  const { currency } = useCalculatorProvider();
+  const { currency, dispatch } = useCalculatorProvider();
 
   const resolveBuy: Array<TBuy> = useMemo<Array<TBuy>>(() => {
     const getExchange: Array<TBuy> = currency
@@ -34,9 +38,17 @@ const useCurrency = (): TReturn => {
     return getExchange;
   }, [currency]);
 
+    const handleFrom: Dispatch<TSelectedExchange> = (selected): void => {
+    dispatch({ type: EReducerVariant.SELECT_FROM, selected });
+  };
+
+  const handleTo: Dispatch<TSelectedExchange> = (selected): void => {
+    dispatch({ type: EReducerVariant.SELECT_TO, selected });
+  };
+
   return {
-    resolveBuy, resolveSell,
-  }
-}
+    handleFrom, handleTo, resolveBuy, resolveSell,
+  };
+};
 
 export default useCurrency;

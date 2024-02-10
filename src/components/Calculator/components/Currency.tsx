@@ -1,14 +1,19 @@
 import { ReactElement } from "react";
-import { default as ReactSelect } from 'react-select'
+import useCalculatorProvider from "../../../context/useCalculatorProvider";
 import useCurrency from "../hooks/useCurrency";
+import { default as ReactSelect } from 'react-select'
 
 const Currency = (): ReactElement => {
-  const { resolveBuy, resolveSell } = useCurrency();
+  const { handleFrom, handleTo, resolveBuy, resolveSell } = useCurrency();
+  const {selectedExchanges} = useCalculatorProvider();
+  console.log(selectedExchanges)
 
   return (
     <div className="flex flex-col items-center gap-5 w-full">
+      {/* From */}
       <ReactSelect
         className="w-full text-black"
+        onChange={handleFrom}
         options={resolveBuy}
         styles={{control: (provided) => ({
             ...provided,
@@ -21,9 +26,11 @@ const Currency = (): ReactElement => {
         <span>▲</span>
         <span>▼</span>
       </div>
-
+      
+      {/* To */}
       <ReactSelect
         className="w-full text-black"
+        onChange={handleTo}
         options={resolveSell}
         styles={{control: (provided) => ({
             ...provided,

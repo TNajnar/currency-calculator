@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from "react"
-import { AmountInput, Currency } from "./components";
+import { AmountInput, CalculateFooter, Currency } from "./components";
 import useCalculatorProvider from "../../context/useCalculatorProvider";
 import getExchangeData from "../../api/getExchangeData";
 import resolveExchangeData from "../../api/resolveExchangeData";
@@ -8,6 +8,7 @@ import resolveExchangeData from "../../api/resolveExchangeData";
 const Calculator = (): ReactElement => {
   const { setCurrency } = useCalculatorProvider();
 
+  // Fetch data from API https://www.kurzy.cz/html-kody/json/kurzy-bank.htm
   useEffect(() => {
     const exchangeData = async (): Promise<void> => {
       const data = await getExchangeData();
@@ -22,6 +23,7 @@ const Calculator = (): ReactElement => {
     <div className="flex flex-col items-center gap-10 px-32 py-20 w-full h-1/2 bg-blue rounded-2xl">
       <AmountInput />
       <Currency />
+      <CalculateFooter />
     </div>
   );
 };
