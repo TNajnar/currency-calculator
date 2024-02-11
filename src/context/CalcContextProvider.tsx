@@ -1,9 +1,8 @@
 import { ReactElement, ReactNode, useReducer, useState } from "react";
-import CalcContext from "./CalcContext";
+import CalcContext, { ICalculatorProps } from "./CalcContext";
 import { TMainExchange, TExchangeData } from "../api/customTypes";
 import { TCurrencyAction } from "../utils/types";
 import { EReducerVariant } from "../utils/enums";
-import { CURRENCIES } from "../utils/consts";
 
 interface IProps {
   children: ReactNode;
@@ -11,8 +10,8 @@ interface IProps {
 
 export interface ICurrencyState {
   selectedExchanges: {
-    from: TMainExchange;
-    to: TMainExchange;
+    from?: TMainExchange;
+    to?: TMainExchange;
   };
 }
 
@@ -34,6 +33,15 @@ const currencyReducer = (state: ICurrencyState, action: TCurrencyAction): ICurre
           to: action.selected,
         },
       };
+    // TODO
+    // case EReducerVariant.SWAP:
+    //   return {
+    //     ...state,
+    //     selectedExchanges: {
+    //       from: state.selectedExchanges.to,
+    //       to: state.selectedExchanges.from,
+    //     },
+    //   };
     default:
       return state;
   }
@@ -41,18 +49,31 @@ const currencyReducer = (state: ICurrencyState, action: TCurrencyAction): ICurre
 
 const CalcContextProvider = ({ children }: IProps): ReactElement => {
   const [amount, setAmount] = useState<number | string>(1);
+  const [firstCurrencyFrom, setFirstCurrencyFrom] = useState<TMainExchange | undefined>(undefined);
+  const [firstCurrencyTo, setFirstCurrencyTo] = useState<TMainExchange | undefined>(undefined);
   const [exchangeData, setExchangeData] = useState<TExchangeData>();
   const [{ selectedExchanges }, dispatch] = useReducer(currencyReducer, {
     selectedExchanges: {
-      from: { code: CURRENCIES[3].code, label: CURRENCIES[3].label, value: 1 },
-      to: { code: CURRENCIES[4].code, label: CURRENCIES[4].label, value: 0.04 },
+      from: undefined,
+      to: undefined,
     },
   });
+
+  const values: ICalculatorProps = {
+    amount,
+    dispatch,
+    firstCurrencyFrom,
+    firstCurrencyTo,
+    exchangeData,
+    selectedExchanges,
+    setAmount,
+    setExchangeData,
+    setFirstCurrencyFrom,
+    setFirstCurrencyTo,
+  }
   
   return (
-    <CalcContext.Provider
-      value={{ amount, dispatch, exchangeData, selectedExchanges, setAmount, setExchangeData }}
-    >
+    <CalcContext.Provider value={values}>
       {children}
     </CalcContext.Provider>
   );

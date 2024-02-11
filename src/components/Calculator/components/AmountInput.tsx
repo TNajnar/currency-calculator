@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement } from "react"
+import { ChangeEvent, ReactElement } from "react";
 import useCalculator from "../../../context/useCalculator";
 import clsx from "clsx";
 

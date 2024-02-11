@@ -15,8 +15,6 @@ const getExchangeData = async (apiEndpoint: string): Promise<TExchangeData> => {
     const rates: Array<TMainExchange> = resolveExchangeData(conversion_rates);
     const updatedExchangeData: TExchangeData = { baseCurrencyRate, rates };
 
-    console.log(updatedExchangeData)
-
     return updatedExchangeData;
   } catch (error) {
     console.error(`Failed to fetch data: ${error}`);

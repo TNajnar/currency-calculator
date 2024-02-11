@@ -1,9 +1,7 @@
 import { CURRENCIES } from "../utils/consts";
 import { TMainExchange, TExchangeApiData } from "./customTypes";
 
-const resolveExchangeData = (
-  rates: TExchangeApiData['conversion_rates'],
-): Array<TMainExchange> => {
+const resolveExchangeData = (rates: TExchangeApiData['conversion_rates']): Array<TMainExchange> => {
   const getRates: Array<TMainExchange> = Object.entries(rates)
     .reduce((acc: Array<TMainExchange>, [code, value]) => {
       const roundedValue = Math.round(value * 100) / 100;

@@ -1,11 +1,13 @@
 import { ReactElement } from "react";
-import useCalculator from "../../../context/useCalculator";
-import useCurrency from "./hooks/useCurrency";
 import { default as ReactSelect } from 'react-select';
+import useCurrency from "./hooks/useCurrency";
+import Divider from "./Divider";
+import { EReducerVariant } from "../../../utils/enums";
 
 const Currency = (): ReactElement => {
-  const { handleFrom, handleTo } = useCurrency();
-  const { exchangeData: { rates } = {}, selectedExchanges } = useCalculator();
+  const { exchangeData, handleChange, initialValues } = useCurrency();
+
+  const { exchangeFrom, exchangeTo } = initialValues;
 
   return (
     <div className="flex flex-col items-center gap-5 w-full">
@@ -13,8 +15,8 @@ const Currency = (): ReactElement => {
       <ReactSelect
         className="w-full select-wrapper"
         classNamePrefix="select"
-        onChange={handleFrom}
-        options={rates}
+        onChange={(selected): void => handleChange(selected, EReducerVariant.SELECT_FROM)}
+        options={exchangeData?.rates}
         styles={{control: (provided) => ({
           ...provided,
           backgroundColor: '#171a23',
@@ -25,20 +27,17 @@ const Currency = (): ReactElement => {
             color: "white"
           }),
         }}
-        value={selectedExchanges.from}
+        value={exchangeFrom}
       />
 
-      <div className="flex flex-col">
-        <span>▲</span>
-        <span>▼</span>
-      </div>
+      <Divider />
       
       {/* To */}
       <ReactSelect
         className="w-full select-wrapper"
         classNamePrefix="select"
-        onChange={handleTo}
-        options={rates}
+        onChange={(selected): void => handleChange(selected, EReducerVariant.SELECT_TO)}
+        options={exchangeData?.rates}
         styles={{control: (provided) => ({
           ...provided,
           backgroundColor: '#171a23',
@@ -49,7 +48,7 @@ const Currency = (): ReactElement => {
             color: "white"
           }),
         }}
-        value={selectedExchanges.to}
+        value={exchangeTo}
       />
     </div>
   );

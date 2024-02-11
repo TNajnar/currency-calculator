@@ -1,36 +1,46 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { SingleValue } from "react-select";
 import useCalculator from "../../../../context/useCalculator";
-import { TMainExchange } from "../../../../api/customTypes";
+import { TExchangeData, TMainExchange } from "../../../../api/customTypes";
 import { EReducerVariant } from "../../../../utils/enums";
+import { TExchangeValues } from "../../../../utils/types";
 
 type TReturn = {
-  handleFrom: (newValue: SingleValue<TMainExchange>) => void;
-  handleTo: (newValue: SingleValue<TMainExchange>) => void;
+  exchangeData?: TExchangeData;
+  handleChange: (newValue: SingleValue<TMainExchange>, variant: EReducerVariant) => void;
+  initialValues: TExchangeValues;
 }
 
 const useCurrency = (): TReturn => {
-  const { dispatch } = useCalculator();
+  const {
+    dispatch,
+    exchangeData,
+    firstCurrencyFrom,
+    firstCurrencyTo,
+    selectedExchanges,
+  } = useCalculator();
 
-  const handleFrom = useCallback((selected: SingleValue<TMainExchange>): void => {
-    const newValue: SingleValue<TMainExchange> = selected;
+  const handleChange = useCallback((
+    selected: SingleValue<TMainExchange>, variant: EReducerVariant
+    ): void => {
 
-    if (newValue !== null) {
-      dispatch({ type: EReducerVariant.SELECT_FROM, selected: newValue });
-    }
+      const newValue: SingleValue<TMainExchange> = selected;
+
+      if (newValue !== null) {
+        dispatch({ type: variant, selected: newValue });
+      }
   }, [dispatch]);
 
-  const handleTo = useCallback((selected: SingleValue<TMainExchange>): void => {
-    const newValue: SingleValue<TMainExchange> = selected;
+  const initialValues: TExchangeValues = useMemo(() => {
+    const exchangeFrom = selectedExchanges?.from ? selectedExchanges.from : firstCurrencyFrom;
+    const exchangeTo = selectedExchanges?.to ? selectedExchanges.to : firstCurrencyTo;
 
-    if (newValue !== null) {
-      dispatch({ type: EReducerVariant.SELECT_TO, selected: newValue });
-    }
-  }, [dispatch]);
+    return { exchangeFrom, exchangeTo }
+  }, [firstCurrencyFrom, firstCurrencyTo, selectedExchanges?.from, selectedExchanges?.to])
+
 
   return {
-    handleFrom, handleTo
+    exchangeData, handleChange, initialValues
   };
 };
-
 export default useCurrency;

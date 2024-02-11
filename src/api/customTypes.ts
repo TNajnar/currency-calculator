@@ -1,16 +1,10 @@
-/* #region Exchange currency API */
-
-/* #endregion */
-
-/* #region Resolved */
+/* #region Exchange */
 
 export type TMainExchange = {
   code: string;
   label: string;
   value: number;
 }
-
-/* #endregion */
 
 export type TExchangeData = {
   baseCurrencyRate: string;
@@ -21,3 +15,5 @@ export type TExchangeApiData = {
   baseCurrencyRate: string;
   conversion_rates: Record<string, number>;
 };
+
+/* #endregion */
