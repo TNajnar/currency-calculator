@@ -40,7 +40,7 @@ const currencyReducer = (state: ICurrencyState, action: TCurrencyAction): ICurre
 };
 
 const CalcContextProvider = ({ children }: IProps): ReactElement => {
-  const [amount, setAmount] = useState<number | string>('');
+  const [amount, setAmount] = useState<number | string>(1);
   const [exchangeData, setExchangeData] = useState<TExchangeData>();
   const [{ selectedExchanges }, dispatch] = useReducer(currencyReducer, {
     selectedExchanges: {

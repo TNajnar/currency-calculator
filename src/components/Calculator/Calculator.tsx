@@ -24,7 +24,7 @@ const Calculator = (): ReactElement => {
   }, [setExchangeData, fromCode, endpoint]);
 
   return (
-    <div className="flex flex-col items-center gap-10 px-32 py-20 w-full h-fit bg-blue rounded-2xl">
+    <div className="flex flex-col items-center gap-10 px-28 py-20 w-full h-fit bg-blue rounded-2xl">
       <AmountInput />
       <Currency />
       <CalculateFooter />

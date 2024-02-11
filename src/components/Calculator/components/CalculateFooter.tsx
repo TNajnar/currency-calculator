@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 import useCalculator from "../../../context/useCalculator";
-import convertMoney from "../../../utils/convert";
+import { convertMoney, formatAmount } from "../../../utils/moneyUtils";
 
 const CalculateFooter = (): ReactElement => {
   const {
@@ -9,10 +9,12 @@ const CalculateFooter = (): ReactElement => {
   } = useCalculator();
 
   return (
-    <div className="flex flex-col">
-      <span>{amount} {fromCurrency}</span>
+    <div className="flex flex-col gap-3 w-full">
+      <span className="text-xl self-start">{formatAmount(amount as number)} {fromCurrency} =</span>
       <span className="text-center">TO</span>
-      <span>{convertMoney(amount as number, value)} {toCurrency}</span>
+      <span className="text-2xl self-end">
+        {convertMoney(amount as number, value)} {toCurrency}
+      </span>
     </div>
   );
 };
