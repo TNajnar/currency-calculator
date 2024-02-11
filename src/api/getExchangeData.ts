@@ -1,8 +1,7 @@
-import { TCurrencyExchange } from "./customTypes";
+import { TMainExchange, TExchangeData } from "./customTypes";
+import resolveExchangeData from "./resolveExchangeData";
 
-const apiEndpoint = "https://data.kurzy.cz/json/meny/b[2]den[20201231].json";
-
-const getExchangeData = async (): Promise<TCurrencyExchange> => {
+const getExchangeData = async (apiEndpoint: string): Promise<TExchangeData> => {
   try {
     const response = await fetch(apiEndpoint);
 
@@ -12,10 +11,16 @@ const getExchangeData = async (): Promise<TCurrencyExchange> => {
 
     const data = await response.json();
 
-    return data as TCurrencyExchange;
+    const { base_code: baseCurrencyRate, conversion_rates } = data;
+    const rates: Array<TMainExchange> = resolveExchangeData(conversion_rates);
+    const updatedExchangeData: TExchangeData = { baseCurrencyRate, rates };
+
+    console.log(updatedExchangeData)
+
+    return updatedExchangeData;
   } catch (error) {
     console.error(`Failed to fetch data: ${error}`);
-    return Promise.resolve({} as TCurrencyExchange);
+    return Promise.resolve({} as TExchangeData);
   }
 };
 

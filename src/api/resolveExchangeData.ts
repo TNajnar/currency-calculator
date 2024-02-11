@@ -1,25 +1,23 @@
-import { TCurrencyDetail, TCurrencyExchange, TExchangeValues } from "./customTypes";
+import { CURRENCIES } from "../utils/consts";
+import { TMainExchange, TExchangeApiData } from "./customTypes";
 
+const resolveExchangeData = (
+  rates: TExchangeApiData['conversion_rates'],
+): Array<TMainExchange> => {
+  const getRates: Array<TMainExchange> = Object.entries(rates)
+    .reduce((acc: Array<TMainExchange>, [code, value]) => {
+      const roundedValue = Math.round(value * 100) / 100;
+      const currencyInfo = CURRENCIES.find((currency) => currency.code === code);
 
-const resolveExchangeData = (exchangeData: TCurrencyExchange): Array<TExchangeValues> => {
-  const { kurzy } = exchangeData;
-
-  const resolveCurrency: Array<TExchangeValues> = Object.entries(kurzy)
-    .reduce((acc: Array<TExchangeValues>, [key, currencyData]) => {
-      if (typeof currencyData === 'object' && currencyData !== null) {
-        const {
-          dev_nakup: buyCurrency, dev_prodej: sellCurrency, nazev
-        } = currencyData as TCurrencyDetail;
-        const country = `${nazev} (${key})`
-
-        acc.push({ buyCurrency, sellCurrency, country });
+      if (currencyInfo) {
+        const label = `${currencyInfo.label} (${code})`;
+        acc.push({ code: code, label, value: roundedValue });
       }
+      
+      return acc;
+    }, [])
 
-        return acc;
-      }, [])
-  
-  return resolveCurrency;
-
+  return getRates ?? [];
 };
 
 export default resolveExchangeData;

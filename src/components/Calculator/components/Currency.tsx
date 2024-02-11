@@ -1,25 +1,31 @@
 import { ReactElement } from "react";
 import useCalculator from "../../../context/useCalculator";
-import useCurrency from "../hooks/useCurrency";
-import { default as ReactSelect } from 'react-select'
+import useCurrency from "./hooks/useCurrency";
+import { default as ReactSelect } from 'react-select';
 
 const Currency = (): ReactElement => {
-  const { handleFrom, handleTo, resolveBuy, resolveSell } = useCurrency();
-  const {selectedExchanges} = useCalculator();
-  console.log(selectedExchanges)
+  const { handleFrom, handleTo } = useCurrency();
+  const { exchangeData: { rates } = {}, selectedExchanges } = useCalculator();
 
   return (
     <div className="flex flex-col items-center gap-5 w-full">
       {/* From */}
       <ReactSelect
-        className="w-full text-black"
+        className="w-full select-wrapper"
+        classNamePrefix="select"
         onChange={handleFrom}
-        options={resolveBuy}
+        options={rates}
         styles={{control: (provided) => ({
-            ...provided,
-            padding: '7px',
+          ...provided,
+          backgroundColor: '#171a23',
+          padding: '7px',
+          }),
+          singleValue: base => ({
+            ...base,
+            color: "white"
           }),
         }}
+        value={selectedExchanges.from}
       />
 
       <div className="flex flex-col">
@@ -29,14 +35,21 @@ const Currency = (): ReactElement => {
       
       {/* To */}
       <ReactSelect
-        className="w-full text-black"
+        className="w-full select-wrapper"
+        classNamePrefix="select"
         onChange={handleTo}
-        options={resolveSell}
+        options={rates}
         styles={{control: (provided) => ({
-            ...provided,
-            padding: '7px',
+          ...provided,
+          backgroundColor: '#171a23',
+          padding: '7px',
+          }),
+          singleValue: base => ({
+            ...base,
+            color: "white"
           }),
         }}
+        value={selectedExchanges.to}
       />
     </div>
   );

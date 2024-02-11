@@ -1,8 +1,9 @@
 import { ReactElement, ReactNode, useReducer, useState } from "react";
 import CalcContext from "./CalcContext";
-import { TExchangeValues, TMainExchange } from "../api/customTypes";
+import { TMainExchange, TExchangeData } from "../api/customTypes";
 import { TCurrencyAction } from "../utils/types";
 import { EReducerVariant } from "../utils/enums";
+import { CURRENCIES } from "../utils/consts";
 
 interface IProps {
   children: ReactNode;
@@ -40,17 +41,17 @@ const currencyReducer = (state: ICurrencyState, action: TCurrencyAction): ICurre
 
 const CalcContextProvider = ({ children }: IProps): ReactElement => {
   const [amount, setAmount] = useState<number | string>('');
-  const [currency, setCurrency] = useState<Array<TExchangeValues>>([]);
+  const [exchangeData, setExchangeData] = useState<TExchangeData>();
   const [{ selectedExchanges }, dispatch] = useReducer(currencyReducer, {
     selectedExchanges: {
-      from: { label: '', value: 0 },
-      to: { label: '', value: 0 },
+      from: { code: CURRENCIES[3].code, label: CURRENCIES[3].label, value: 1 },
+      to: { code: CURRENCIES[4].code, label: CURRENCIES[4].label, value: 0.04 },
     },
   });
   
   return (
     <CalcContext.Provider
-      value={{ amount, currency, dispatch, selectedExchanges, setAmount, setCurrency }}
+      value={{ amount, dispatch, exchangeData, selectedExchanges, setAmount, setExchangeData }}
     >
       {children}
     </CalcContext.Provider>

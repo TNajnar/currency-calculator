@@ -34,10 +34,8 @@
     @apply w-full h-screen;
   }
 
-  /* TODO  
-  * .mySelect[class*="-valueContainer"] {
-    background-color: lemonchiffon;
-    padding: 10px;
-  } */
+  .select-wrapper .select__menu {
+    @apply bg-blue text-white border border-white;
+  }
 
 }

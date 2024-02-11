@@ -5,3 +5,8 @@ export type TCurrencyAction = (
   | { type: EReducerVariant.SELECT_FROM; selected: TMainExchange }
   | { type: EReducerVariant.SELECT_TO; selected: TMainExchange }
 )
+
+export type TCurrency = {
+  code: string;
+  label: string;
+}
