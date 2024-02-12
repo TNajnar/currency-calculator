@@ -5,9 +5,9 @@ import Divider from "./Divider";
 import { EReducerVariant } from "../../../utils/enums";
 
 const Currency = (): ReactElement => {
-  const { exchangeData, handleChange, initialValues } = useCurrency();
+  const { exchangeData, handleChange, exchangeValues } = useCurrency();
 
-  const { exchangeFrom, exchangeTo } = initialValues;
+  const { exchangeFrom, exchangeTo } = exchangeValues;
 
   return (
     <div className="flex flex-col items-center gap-5 w-full">

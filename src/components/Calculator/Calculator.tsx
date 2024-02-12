@@ -1,8 +1,10 @@
-import { ReactElement, useEffect } from "react"
+import { ReactElement, useCallback, useEffect } from "react"
 import { AmountInput, CalculateFooter, Currency } from "./components";
 import useCalculator from "../../context/useCalculator";
 import getExchangeData from "../../api/getExchangeData";
 import { ERoutes } from "../../utils/enums";
+import { CURRENCIES } from "../../utils/consts";
+import { TMainExchange } from "../../api/customTypes";
 
 const API_KEY = process.env.API_KEY;
 
@@ -14,32 +16,42 @@ const Calculator = (): ReactElement => {
     setExchangeData,
   } = useCalculator();
 
+  const getInitialValue = useCallback((rates: Array<TMainExchange>, isFrom: boolean) => {
+    const initialValueFrom = rates.find((country) => country.code === CURRENCIES[4].code);
+    const initialValueTo = rates.find((country) => country.code === CURRENCIES[5].code);
+
+    return isFrom
+      ? setFirstCurrencyFrom(initialValueFrom as TMainExchange)
+      : setFirstCurrencyTo(initialValueTo as TMainExchange);
+  }, [setFirstCurrencyFrom, setFirstCurrencyTo])
+
   // Create url
   const endpoint = ERoutes.API_ENDPOINT
     .replace('{key}', API_KEY || '')
     .replace('{base}', selectedExchanges?.from?.code || 'CZK');
-
-  // Fetch data from API
-  useEffect(() => {
-    const exchangeData = async (): Promise<void> => {
-      const data = await getExchangeData(endpoint);
-      setExchangeData(data);
+    
+    // Fetch data from API
+    useEffect(() => {
+      const exchangeData = async (): Promise<void> => {
+        const data = await getExchangeData(endpoint);
+        setExchangeData(data);
       if (!selectedExchanges?.from) {
-        setFirstCurrencyFrom(data.rates[0]);
+        getInitialValue(data.rates, true);
       }
       if (!selectedExchanges?.to) {
-        setFirstCurrencyTo(data.rates[1]);
+        getInitialValue(data.rates, false);
       }
     };
     
     exchangeData();
   }, [
-      setExchangeData,
       endpoint,
+      getInitialValue,
+      selectedExchanges?.from,
+      selectedExchanges?.to,
+      setExchangeData,
       setFirstCurrencyFrom,
       setFirstCurrencyTo,
-      selectedExchanges?.from,
-      selectedExchanges?.to
     ]
   );
 

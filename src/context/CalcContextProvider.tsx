@@ -33,7 +33,7 @@ const currencyReducer = (state: ICurrencyState, action: TCurrencyAction): ICurre
           to: action.selected,
         },
       };
-    // TODO
+// TODO
     // case EReducerVariant.SWAP:
     //   return {
     //     ...state,

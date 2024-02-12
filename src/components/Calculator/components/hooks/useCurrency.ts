@@ -7,8 +7,8 @@ import { TExchangeValues } from "../../../../utils/types";
 
 type TReturn = {
   exchangeData?: TExchangeData;
+  exchangeValues: TExchangeValues;
   handleChange: (newValue: SingleValue<TMainExchange>, variant: EReducerVariant) => void;
-  initialValues: TExchangeValues;
 }
 
 const useCurrency = (): TReturn => {
@@ -31,7 +31,7 @@ const useCurrency = (): TReturn => {
       }
   }, [dispatch]);
 
-  const initialValues: TExchangeValues = useMemo(() => {
+  const exchangeValues: TExchangeValues = useMemo(() => {
     const exchangeFrom = selectedExchanges?.from ? selectedExchanges.from : firstCurrencyFrom;
     const exchangeTo = selectedExchanges?.to ? selectedExchanges.to : firstCurrencyTo;
 
@@ -40,7 +40,7 @@ const useCurrency = (): TReturn => {
 
 
   return {
-    exchangeData, handleChange, initialValues
+    exchangeData, exchangeValues, handleChange,
   };
 };
 export default useCurrency;
