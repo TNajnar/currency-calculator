@@ -33,15 +33,6 @@ const currencyReducer = (state: ICurrencyState, action: TCurrencyAction): ICurre
           to: action.selected,
         },
       };
-    // TODO
-    // case EReducerVariant.SWAP:
-      //   return {
-        //     ...state,
-        //     selectedExchanges: {
-          //       from: state.selectedExchanges.to,
-          //       to: state.selectedExchanges.from,
-        //     },
-      //   };
     default:
       return state;
   }
@@ -62,9 +53,9 @@ const CalcContextProvider = ({ children }: IProps): ReactElement => {
   const values: ICalculatorProps = {
     amount,
     dispatch,
+    exchangeData,
     firstCurrencyFrom,
     firstCurrencyTo,
-    exchangeData,
     selectedExchanges,
     setAmount,
     setExchangeData,

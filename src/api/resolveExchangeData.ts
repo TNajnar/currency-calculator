@@ -15,7 +15,7 @@ const resolveExchangeData = (rates: TExchangeApiData['conversion_rates']): Array
       return acc;
     }, [])
 
-  return getRates ?? [];
+  return getRates;
 };
 
 export default resolveExchangeData;

@@ -14,7 +14,7 @@ npm install
 - **api**: Fetch exchange data from API
 - **components**: React components for building the user interface
 - **context**: Javascript (Typescript) source code
-- **styles**: CSS or styling files for the application
+- **styles**: styles for the application
 - **utils**: Utility functions or helper files
 
 ## Development

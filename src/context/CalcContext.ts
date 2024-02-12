@@ -1,6 +1,6 @@
 import { Dispatch, createContext } from "react";
-import { TMainExchange, TExchangeData } from "../api/customTypes";
 import { TCurrencyAction } from "../utils/types";
+import { TMainExchange, TExchangeData } from "../api/customTypes";
 
 type TSelected = {
   from?: TMainExchange;
@@ -15,9 +15,9 @@ const initialExchange: TExchangeData = {
 export interface ICalculatorProps {
   amount: number | string;
   dispatch: Dispatch<TCurrencyAction>;
+  exchangeData?: TExchangeData;
   firstCurrencyFrom?: TMainExchange;
   firstCurrencyTo?: TMainExchange;
-  exchangeData?: TExchangeData;
   selectedExchanges?: TSelected;
   setAmount: (value: number | string) => void;
   setExchangeData: (value: TExchangeData) => void;
@@ -28,14 +28,14 @@ export interface ICalculatorProps {
 const initialContextState: ICalculatorProps = {
   amount: '',
   dispatch: () => {},
+  exchangeData: initialExchange,
   firstCurrencyFrom: undefined,
   firstCurrencyTo: undefined,
-  exchangeData: initialExchange,
   selectedExchanges: undefined,
   setAmount: () => undefined,
+  setExchangeData: () => {},
   setFirstCurrencyFrom: () => undefined,
   setFirstCurrencyTo: () => undefined,
-  setExchangeData: () => {},
 }
 
 const CalcContext = createContext<ICalculatorProps>(initialContextState);

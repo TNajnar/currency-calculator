@@ -28,35 +28,35 @@ const Calculator = (): ReactElement => {
   // Create url
   const endpoint = ERoutes.API_ENDPOINT
     .replace('{key}', API_KEY || '')
-    .replace('{base}', CURRENCIES[4].code); // CZK
-    
+    .replace('{base}', selectedExchanges?.from?.code || CURRENCIES[4].code); // CZK
+
     // Fetch data from API
     useEffect(() => {
       const exchangeData = async (): Promise<void> => {
         const data = await getExchangeData(endpoint);
         setExchangeData(data);
-      if (!selectedExchanges?.from) {
-        getInitialValue(data.rates, true);
-      }
-      if (!selectedExchanges?.to) {
-        getInitialValue(data.rates, false);
-      }
-    };
-    
-    exchangeData();
-  }, [
+        if (!selectedExchanges?.from) {
+          getInitialValue(data.rates, true);
+        }
+        if (!selectedExchanges?.to) {
+          getInitialValue(data.rates, false);
+        }
+      };
+      
+      exchangeData();
+    }, [
       endpoint,
       getInitialValue,
       selectedExchanges?.from,
       selectedExchanges?.to,
       setExchangeData,
       setFirstCurrencyFrom,
-      setFirstCurrencyTo,
+      setFirstCurrencyTo
     ]
-  );
+    );
 
   return (
-    <div className="flex flex-col items-center gap-10 px-28 py-20 w-full h-fit bg-blue rounded-2xl">
+    <div className="flex flex-col items-center gap-10 p-6 md:px-16 md:py-20 w-full h-fit bg-blue rounded-2xl">
       <AmountInput />
       <Currency />
       <CalculateFooter />

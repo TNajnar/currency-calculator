@@ -20,13 +20,13 @@ const CalculateFooter = (): ReactElement => {
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <span className="text-xl self-start">
+      <span className="text-xl md:text-2xl self-start">
         {formatAmount(amount as number)} {exchangeFrom?.label} =
       </span>
 
-      <span className="text-center">TO</span>
+      <span className="text-lg md:text-xl text-center">TO</span>
 
-      <span className="text-2xl self-end">
+      <span className="text-xl md:text-2xl self-end">
         {convertMoney(amount as number, exchangeTo?.value as number)} {exchangeTo?.label}
       </span>
     </div>
