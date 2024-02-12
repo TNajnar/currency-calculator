@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactElement } from "react";
-import useCalculator from "../../../context/useCalculator";
+import useCalculator from "@/context/useCalculator";
 import clsx from "clsx";
 
 const AmountInput = (): ReactElement => {

@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import { default as ReactSelect } from 'react-select';
 import useCurrency from "./hooks/useCurrency";
 import Divider from "./Divider";
-import { EReducerVariant } from "../../../utils/enums";
+import { EReducerVariant } from "@/utils/enums";
 
 const Currency = (): ReactElement => {
   const { exchangeData, handleChange, exchangeValues } = useCurrency();

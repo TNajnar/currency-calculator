@@ -1,9 +1,9 @@
 import { useCallback, useMemo } from "react";
+import useCalculator from "@/context/useCalculator";
 import { SingleValue } from "react-select";
-import useCalculator from "../../../../context/useCalculator";
-import { TExchangeData, TMainExchange } from "../../../../api/customTypes";
-import { EReducerVariant } from "../../../../utils/enums";
-import { TExchangeValues } from "../../../../utils/types";
+import { EReducerVariant } from "@/utils/enums";
+import { TExchangeValues } from "@/utils/types";
+import { TExchangeData, TMainExchange } from "@/api/customTypes";
 
 type TReturn = {
   exchangeData?: TExchangeData;

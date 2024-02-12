@@ -1,10 +1,10 @@
 import { ReactElement, useCallback, useEffect } from "react"
+import useCalculator from "@/context/useCalculator";
+import getExchangeData from "@/api/getExchangeData";
 import { AmountInput, CalculateFooter, Currency } from "./components";
-import useCalculator from "../../context/useCalculator";
-import getExchangeData from "../../api/getExchangeData";
-import { ERoutes } from "../../utils/enums";
-import { CURRENCIES } from "../../utils/consts";
-import { TMainExchange } from "../../api/customTypes";
+import { CURRENCIES } from "@/utils/consts";
+import { ERoutes } from "@/utils/enums";
+import { TMainExchange } from "@/api/customTypes";
 
 const API_KEY = process.env.API_KEY;
 
@@ -28,7 +28,7 @@ const Calculator = (): ReactElement => {
   // Create url
   const endpoint = ERoutes.API_ENDPOINT
     .replace('{key}', API_KEY || '')
-    .replace('{base}', selectedExchanges?.from?.code || 'CZK');
+    .replace('{base}', CURRENCIES[4].code); // CZK
     
     // Fetch data from API
     useEffect(() => {
@@ -58,7 +58,7 @@ const Calculator = (): ReactElement => {
   return (
     <div className="flex flex-col items-center gap-10 px-28 py-20 w-full h-fit bg-blue rounded-2xl">
       <AmountInput />
-      <Currency  />
+      <Currency />
       <CalculateFooter />
     </div>
   );

@@ -1,7 +1,7 @@
 import { ReactElement, useMemo } from "react";
-import useCalculator from "../../../context/useCalculator";
-import { convertMoney, formatAmount } from "../../../utils/moneyUtils";
-import { TExchangeValues } from "../../../utils/types";
+import useCalculator from "@/context/useCalculator";
+import { convertMoney, formatAmount } from "@/utils/moneyUtils";
+import { TExchangeValues } from "@/utils/types";
 
 const CalculateFooter = (): ReactElement => {
   const {
